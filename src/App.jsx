@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Routes, Route, Link
+  Routes, Route, Link,
+  useParams
 } from 'react-router-dom'
 
 const Menu = () => {
@@ -21,10 +22,21 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`${anecdote.id}`}>{anecdote.content}</Link></li>)}
     </ul>
-  </div>
+  </div >
 )
+
+const Anecdote = ({ anecdoteById }) => {
+  const id = useParams().id
+  const anecdote = anecdoteById(Number(id))
+  return (
+    <div style={{ border: "1px solid black" }}>
+      <h2>{anecdote.content}</h2>
+      <p>Votes: {anecdote.votes}</p>
+    </div>
+  )
+}
 
 const About = () => (
   <div>
@@ -112,8 +124,11 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+  const anecdoteById = (id) => {
+    console.log("🚀 ~ anecdoteById ~ id:", id)
+    return anecdotes.find(a => a.id === id)
+  }
+
 
   const vote = (id) => {
     const anecdote = anecdoteById(id)
@@ -135,6 +150,7 @@ const App = () => {
           <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path="/create" element={<CreateNew addNew={addNew} />} />
           <Route path="/about" element={<About />} />
+          <Route path="/:id" element={<Anecdote anecdoteById={anecdoteById} />} />
         </Routes>
         <Footer />
       </div>
