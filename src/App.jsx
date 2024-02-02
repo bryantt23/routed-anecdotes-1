@@ -126,23 +126,16 @@ const CreateNew = ({ addNew, setNotification }) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input
-            type={content.type}
-            value={content.value}
-            onChange={content.onChange} />
+          <input {...content} />
         </div>
         <div>
           author
-          <input
-            type={author.type}
-            value={author.value}
-            onChange={author.onChange} />       </div>
+          <input {...author} />
+        </div>
         <div>
           url for more info
-          <input
-            type={info.type}
-            value={info.value}
-            onChange={info.onChange} />      </div>
+          <input {...info} />
+        </div>
         <input type="submit" value="create" />
         <button onClick={(e) => resetFields(e)}>reset</button>
       </form>
