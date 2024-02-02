@@ -113,6 +113,13 @@ const CreateNew = ({ addNew, setNotification }) => {
     navigate('/')
   }
 
+  const resetFields = (e) => {
+    e.preventDefault()
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -136,7 +143,8 @@ const CreateNew = ({ addNew, setNotification }) => {
             type={info.type}
             value={info.value}
             onChange={info.onChange} />      </div>
-        <button>create</button>
+        <input type="submit" value="create" />
+        <button onClick={(e) => resetFields(e)}>reset</button>
       </form>
     </div>
   )
