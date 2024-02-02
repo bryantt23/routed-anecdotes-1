@@ -5,18 +5,7 @@ import {
   useParams,
   useNavigate
 } from 'react-router-dom'
-
-const useField = (type) => {
-  const [value, setValue] = useState("")
-
-  const onChange = (event) => {
-    setValue(event.target.value)
-  }
-
-  return {
-    type, value, onChange
-  }
-}
+import { useField } from './hooks'
 
 const Notification = ({ notification }) => {
   const [visible, setVisible] = useState(false)
